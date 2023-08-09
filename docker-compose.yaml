@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+    db:
+        container_name: db
+        hostname: db
+        build:
+            context: .
+            dockerfile: ./docker/db.dockerfile
+            args:
+            - ENV=${ENV}
+            - PROJECT_NAME=${PROJECT_NAME}
+            - WWWUSER=${WWWUSER:-1000}
+            - WWWGROUP=${WWWGROUP:-1000}
+            - DB_DATABASE=${DB_DATABASE}
+            - DB_PASSWORD=${DB_PASSWORD}
+            - DB_USERNAME=${DB_USERNAME}
+        command: --innodb-use-native-aio=0
+        restart: always
+        ports:
+            - "3301:3306"
+        volumes:
+            - ./docker/db/dbdata:/var/lib/mysql
+            - ./docker/db:/docker-entrypoint-initdb.d
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
