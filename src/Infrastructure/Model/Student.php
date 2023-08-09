@@ -19,7 +19,9 @@ class Student
 
     public function __construct(
         #[Column]
-        public readonly string $name
+        public readonly string $name,
+        #[Column]
+        public readonly string $cpf
     ) {
     }
 }
