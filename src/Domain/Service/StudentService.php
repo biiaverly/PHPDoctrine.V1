@@ -10,35 +10,55 @@ use Src\Infrastructure\Persistence\StudentRepository;
 
 class StudentService
 {
+    public $doctrineRepository;
 
-    public function __construct(public StudentRepository $doctrineRepository)
+    public function __construct()
     {
-        $this->doctrineRepository = $doctrineRepository;
+        $this->doctrineRepository = new StudentRepository();
     }
 
     public function newStudent(Student $student)
     {
-        $doctrineRepository = new StudentRepository(new EntityManagerCreator);
-        $doctrineRepository->insertStudent($student);
+        $this->doctrineRepository->insertStudent($student);
 
         return true;
     }
 
     public function listStudents()
     {
-        $doctrineRepository = new StudentRepository(new EntityManagerCreator);
-        $list = $doctrineRepository->listAll();
+        $list = $this->doctrineRepository->listAll();
         foreach ($list as $student)
         {
             echo "ID: $student->id \n Nome: $student->name \n";
         }
     }
 
-    public function findId()
+    public function findId(int $id)
     {
-        $doctrineRepository = new StudentRepository(new EntityManagerCreator);
-        $student = $doctrineRepository->findId(2);
+        $student = $this->doctrineRepository->findById($id);
         return $student;
+    }
+
+    public function findByCpf(string $cpf)
+    {
+        $student = $this->doctrineRepository->findIdByCpf($cpf);
+        return $student;
+    }
+
+    public function removeStudent(string $cpf)
+    {
+        $sucess =  $this->doctrineRepository->remove($cpf);
+        if($sucess==false)
+        {
+            return false;
+        }
+        return $sucess;
+    }
+
+    public function renameStudent(string $cpf, string $newName)
+    {
+        return $this->doctrineRepository->rename($cpf,$newName);
+
     }
     
 }
