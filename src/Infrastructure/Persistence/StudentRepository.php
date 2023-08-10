@@ -64,11 +64,11 @@ class StudentRepository
         {
             return false;;
         }
-        $student = $this->entityManager->getPartialReference(Student::class,$id);
+        $student = $this->entityManager->getPartialReference(Student::class,$id->id);
         $this->entityManager->remove($student);
         $this->entityManager->flush();
 
-        return true;
+        return $id;
     }
 
     public function rename(string $cpf, string $newName)
