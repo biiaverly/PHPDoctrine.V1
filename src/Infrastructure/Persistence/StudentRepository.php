@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace  Src\Infrastructure\Persistence;
 
+use Src\Infrastructure\Model\Phone;
 use Src\Infrastructure\Model\Student;
 use Src\Infrastructure\EntityManagerCreator;
 
@@ -43,7 +44,7 @@ class StudentRepository
 
     public function findIdByCpf(string $cpf)
     {
- 
+        
         $studentRepository = $this->entityManager->getRepository(Student::class);
         $student = $studentRepository->findBy([
             'cpf' => $cpf
@@ -85,4 +86,13 @@ class StudentRepository
         return $student;
     }
 
+    public function addNumber(Student $student, string $number)
+    {
+        $student->addPhone(new Phone($number));
+
+        $this->entityManager->persist($student);
+        $this->entityManager->flush();
+
+        return $student;
+    }
 }

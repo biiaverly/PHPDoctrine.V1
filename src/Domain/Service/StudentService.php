@@ -60,5 +60,11 @@ class StudentService
         return $this->doctrineRepository->rename($cpf,$newName);
 
     }
+
+    public function addNumberToStudent(Student $student, string $number)
+    {
+        return $this->doctrineRepository->addNumber($student,$number);
+
+    }
     
 }
