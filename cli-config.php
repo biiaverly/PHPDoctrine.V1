@@ -1,11 +1,14 @@
 <?php
-use Doctrine\ORM\Tools\Console\ConsoleRunner;
+use Doctrine\Migrations\DependencyFactory;
 use Src\Infrastructure\EntityManagerCreator;
+use Doctrine\Migrations\Configuration\Migration\PhpFile;
+use Doctrine\Migrations\Configuration\EntityManager\ExistingEntityManager;
 
 // replace with file to your own project bootstrap
 require_once 'vendor/autoload.php';
 
-// replace with mechanism to retrieve EntityManager in your app
-$entityManager = EntityManagerCreator::createEntityManager() ;
+$config = new PhpFile(__DIR__ . '/migrations.php');
 
-return ConsoleRunner::createHelperSet($entityManager);
+$entityManager = EntityManagerCreator::createEntityManager();
+
+return DependencyFactory::fromEntityManager($config, new ExistingEntityManager($entityManager));
