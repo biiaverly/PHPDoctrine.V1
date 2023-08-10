@@ -9,8 +9,7 @@
         "psr-4": {
             "Src\\":"src/",
             "Src\\Infrastructure\\": "src/Infrastructure",
-            "Src\\Domain\\": "src/Domain",
-            "Src\\Application\\": "src/Application"
+            "Src\\Domain\\": "src/Domain"
         }
     }
 }
