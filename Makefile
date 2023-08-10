@@ -3,7 +3,7 @@ SHELL = /bin/sh
 
 # Variables
 ENV = localhost
-PROJECT_NAME = ORM
+PROJECT_NAME = Doctrine
 PWD ?= pwd_unknown
 PROJECT= $(shell echo ${PROJECT_NAME} | tr '[:lower:]' '[:upper:]' | tr '-' '_')
 export PROJECT
@@ -16,7 +16,7 @@ else
 endif
 
 # Database variables
-DB_DATABASE = ORM
+DB_DATABASE = Study
 DB_PASSWORD = root
 DB_USERNAME = root
 
